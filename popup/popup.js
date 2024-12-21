@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  document.getElementById('insert-url').addEventListener('click', () => {
+    browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs.length > 0) {
+        document.getElementById('domain').value = tabs[0].url;
+      }
+    });
+  });
+
   setInterval(updateCountdowns, 1000);
 });
 
@@ -29,8 +37,8 @@ function loadSettings() {
       settingDiv.className = 'setting';
       settingDiv.innerHTML = `
         <div class="setting-info">
-          <span class="domain">Domain: ${setting.domain}</span>
-          <span class="interval">Interval: ${setting.interval / 1000} seconds</span>
+          <span class="domain" title="${setting.domain}">${truncate(setting.domain, 30)}</span>
+          <span class="interval">${setting.interval / 1000} seconds</span>
           <span class="countdown" data-index="${index}"></span>
         </div>
         <div class="setting-actions">
@@ -75,4 +83,8 @@ function updateCountdowns() {
       }
     });
   });
+}
+
+function truncate(str, n) {
+  return (str.length > n) ? str.substr(0, n - 1) + '...' : str;
 }
