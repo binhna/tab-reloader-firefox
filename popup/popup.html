@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tab Reloader</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>Tab Reloader</h1>
+  <label for="domain">Domain (Regex):</label>
+  <input type="text" id="domain" placeholder="e.g., .*example.com.*">
+  <label for="interval">Interval (seconds):</label>
+  <input type="number" id="interval" placeholder="10">
+  <button id="start">Start Reloading</button>
+  <h2>Current Settings</h2>
+  <div id="settings"></div>
+  <script src="popup.js"></script>
+</body>
+</html>

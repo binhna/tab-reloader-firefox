@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "Firefox Tab Reloader",
+  "version": "1.0",
+  "description": "Reloads tabs based on user-defined settings.",
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html"
+}
