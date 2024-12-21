@@ -8,16 +8,21 @@ function startReloading() {
     }
     if (settings.length > 0) {
       reloadInterval = setInterval(() => {
-        browser.tabs.query({}, (tabs) => {
-          tabs.forEach((tab) => {
-            settings.forEach((setting) => {
-              if (new RegExp(setting.domain).test(tab.url)) {
-                browser.tabs.reload(tab.id);
-              }
+        const now = Date.now();
+        settings.forEach((setting, index) => {
+          if (now >= setting.nextReload) {
+            browser.tabs.query({}, (tabs) => {
+              tabs.forEach((tab) => {
+                if (new RegExp(setting.domain).test(tab.url)) {
+                  browser.tabs.reload(tab.id);
+                }
+              });
             });
-          });
+            setting.nextReload = now + setting.interval;
+          }
         });
-      }, Math.min(...settings.map(setting => setting.interval)));
+        browser.storage.local.set({ settings });
+      }, 1000);
     }
   });
 }

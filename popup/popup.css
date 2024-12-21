@@ -1,47 +1,121 @@
 body {
   font-family: Arial, sans-serif;
   padding: 10px;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  font-size: 18px;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
 }
 
 label {
   display: block;
-  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 input {
   width: 100%;
-  padding: 5px;
-  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 button {
-  margin-top: 10px;
-  padding: 10px;
   width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 
 h2 {
   margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
 }
 
 .setting {
-  margin-top: 10px;
+  background-color: white;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.setting span {
+.setting-info {
+  flex-grow: 1;
+}
+
+.setting-info span {
   display: block;
+  margin-bottom: 5px;
+}
+
+.setting-actions {
+  display: flex;
+  flex-direction: column;
 }
 
 .setting button {
-  margin-top: 5px;
+  width: 100%;
   padding: 5px;
-  width: 48%;
-  display: inline-block;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.setting button.edit {
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.setting button.edit:hover {
+  background-color: #e0a800;
+}
+
+.setting button.delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.setting button.delete:hover {
+  background-color: #c82333;
+}
+
+.countdown {
+  font-weight: bold;
+  color: #007bff;
 }

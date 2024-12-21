@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (domain && interval) {
       browser.storage.local.get('settings', (data) => {
         const settings = data.settings || [];
-        settings.push({ domain, interval });
+        settings.push({ domain, interval, nextReload: Date.now() + interval });
         browser.storage.local.set({ settings }, loadSettings);
         browser.runtime.sendMessage({ action: 'start' });
       });
     }
   });
+
+  setInterval(updateCountdowns, 1000);
 });
 
 function loadSettings() {
@@ -26,10 +28,15 @@ function loadSettings() {
       const settingDiv = document.createElement('div');
       settingDiv.className = 'setting';
       settingDiv.innerHTML = `
-        <span>Domain: ${setting.domain}</span>
-        <span>Interval: ${setting.interval / 1000} seconds</span>
-        <button class="edit" data-index="${index}">Edit</button>
-        <button class="delete" data-index="${index}">Delete</button>
+        <div class="setting-info">
+          <span class="domain">Domain: ${setting.domain}</span>
+          <span class="interval">Interval: ${setting.interval / 1000} seconds</span>
+          <span class="countdown" data-index="${index}"></span>
+        </div>
+        <div class="setting-actions">
+          <button class="edit" data-index="${index}">Edit</button>
+          <button class="delete" data-index="${index}">Delete</button>
+        </div>
       `;
       settingsDiv.appendChild(settingDiv);
     });
@@ -51,6 +58,21 @@ function loadSettings() {
         settings.splice(index, 1);
         browser.storage.local.set({ settings }, loadSettings);
       });
+    });
+  });
+}
+
+function updateCountdowns() {
+  browser.storage.local.get('settings', (data) => {
+    const settings = data.settings || [];
+    const now = Date.now();
+
+    settings.forEach((setting, index) => {
+      const countdownElement = document.querySelector(`.countdown[data-index="${index}"]`);
+      if (countdownElement) {
+        const timeLeft = Math.max(0, Math.floor((setting.nextReload - now) / 1000));
+        countdownElement.textContent = `Next reload in: ${timeLeft} seconds`;
+      }
     });
   });
 }
